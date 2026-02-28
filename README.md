@@ -32,3 +32,7 @@ If you see "Page not found":
 ## Notes on Google Keep integration
 
 Google Keep does not provide an easy public API for direct browser-side list access. This app uses a practical workflow where you copy checklist text from Keep and import it into the tracker.
+
+
+Google Keep List link:
+- https://keep.google.com/#LIST/1gVzWihX1PIjUKA0gxanf4JXWqvNcKO2INpayB8ws3nB2PQ_W90TpSiXZmYmD9xVMCsZl0w

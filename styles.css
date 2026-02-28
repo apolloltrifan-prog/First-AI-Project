@@ -43,6 +43,28 @@ body {
   backdrop-filter: blur(4px);
 }
 
+.keep-link-panel {
+  border: 1px solid #67e8f9;
+}
+
+.keep-link-button {
+  display: inline-block;
+  margin-top: 0.4rem;
+  background: linear-gradient(to right, var(--accent), var(--accent-2));
+  color: #0f172a;
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 0.65rem 0.9rem;
+}
+
+.keep-link-text {
+  margin-top: 0.7rem;
+  font-size: 0.9rem;
+  color: #bfdbfe;
+  word-break: break-all;
+}
+
 .stats .stat-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
