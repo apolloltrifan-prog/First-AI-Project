@@ -7,15 +7,27 @@ A simple school project tracking app with a gamified experience:
 - Unlock badges for milestones.
 - Import checklist text copied from a Google Keep list.
 
-## Run
+## Run the UI
 
-This is a static app, so you can open `index.html` directly or serve it locally:
+From the project folder:
 
 ```bash
-python3 -m http.server 8000
+python3 server.py
 ```
 
-Then open `http://localhost:8000`.
+Then open:
+
+- `http://localhost:8000`
+
+### Troubleshooting: "Page not found"
+
+If you see "Page not found":
+
+1. Make sure you started the server from this repo directory.
+2. Use `http://localhost:8000` (or `http://localhost:8000/index.html`).
+3. Keep the terminal running while using the app.
+
+`server.py` includes a friendly fallback so unknown routes still load `index.html`.
 
 ## Notes on Google Keep integration
 
