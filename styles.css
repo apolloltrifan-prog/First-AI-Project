@@ -1,6 +1,5 @@
 :root {
   --bg: #0f172a;
-  --panel: #1e293b;
   --panel-light: #334155;
   --text: #e2e8f0;
   --accent: #22d3ee;
@@ -31,31 +30,40 @@ body {
   text-align: center;
 }
 
-.hero h1 {
-  margin-bottom: 0.25rem;
-}
-
 .panel {
-  background: rgba(30, 41, 59, 0.85);
+  background: rgba(30, 41, 59, 0.92);
   border: 1px solid #475569;
   border-radius: 16px;
   padding: 1rem;
-  backdrop-filter: blur(4px);
 }
 
 .keep-link-panel {
-  border: 1px solid #67e8f9;
+  border-color: #67e8f9;
 }
 
-.keep-link-button {
+.keep-link-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.keep-link-button,
+button {
   display: inline-block;
-  margin-top: 0.4rem;
   background: linear-gradient(to right, var(--accent), var(--accent-2));
-  color: #0f172a;
-  text-decoration: none;
-  font-weight: 700;
+  border: none;
   border-radius: 10px;
+  color: #0f172a;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
   padding: 0.65rem 0.9rem;
+}
+
+button.ghost {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid #64748b;
 }
 
 .keep-link-text {
@@ -97,7 +105,6 @@ body {
   width: 0;
   height: 100%;
   background: linear-gradient(to right, var(--accent), var(--accent-2));
-  transition: width 0.3s ease;
 }
 
 .task-form,
@@ -107,26 +114,8 @@ body {
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
-.task-form button,
-.actions button {
-  background: var(--accent);
-  border: none;
-  border-radius: 10px;
-  font-weight: 700;
-  color: #0f172a;
-  cursor: pointer;
-  padding: 0.6rem;
-}
-
 .actions {
-  margin-top: 0.6rem;
   grid-template-columns: 1fr 1fr;
-}
-
-.actions .ghost {
-  background: transparent;
-  color: var(--text);
-  border: 1px solid #64748b;
 }
 
 input,
@@ -140,7 +129,9 @@ textarea {
   color: var(--text);
 }
 
-.task-list {
+.task-list,
+#badge-list,
+.activity-log {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -148,36 +139,22 @@ textarea {
   gap: 0.5rem;
 }
 
-.task-item {
+.task-item,
+.activity-log li {
   background: var(--panel-light);
   border-radius: 12px;
   padding: 0.7rem;
+}
+
+.task-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.task-item small {
-  color: #bfdbfe;
-}
-
-.task-item button {
-  background: var(--ok);
-  border: none;
-  border-radius: 10px;
-  padding: 0.45rem 0.6rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.badges ul,
 #badge-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
 }
 
 #badge-list li {
@@ -186,10 +163,6 @@ textarea {
   border-radius: 999px;
   padding: 0.35rem 0.7rem;
   font-size: 0.9rem;
-}
-
-.empty-state {
-  opacity: 0.8;
 }
 
 @media (max-width: 700px) {

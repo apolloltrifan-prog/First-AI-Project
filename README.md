@@ -1,38 +1,26 @@
 # School Quest Tracker
 
-A simple school project tracking app with a gamified experience:
+A working, single-page school project tracker with gamification.
 
-- Add homework tasks with difficulty-based XP.
-- Complete tasks to earn XP, level up, and build a day streak.
-- Unlock badges for milestones.
-- Import checklist text copied from a Google Keep list.
+## What is built
 
-## Run the UI
+- Add tasks with title, subject, due date, and difficulty XP.
+- Complete tasks to gain XP, increase level, and build streak.
+- Earn milestone badges.
+- Import tasks from copied Google Keep checklist lines.
+- See **Live Output** activity so you can confirm actions happened.
+- Open/copy the Google Keep link directly in the UI.
 
-From the project folder:
+## Run locally
 
 ```bash
 python3 server.py
 ```
 
-Then open:
+Open:
 
 - `http://localhost:8000`
 
-### Troubleshooting: "Page not found"
+## Google Keep link used in app
 
-If you see "Page not found":
-
-1. Make sure you started the server from this repo directory.
-2. Use `http://localhost:8000` (or `http://localhost:8000/index.html`).
-3. Keep the terminal running while using the app.
-
-`server.py` includes a friendly fallback so unknown routes still load `index.html`.
-
-## Notes on Google Keep integration
-
-Google Keep does not provide an easy public API for direct browser-side list access. This app uses a practical workflow where you copy checklist text from Keep and import it into the tracker.
-
-
-Google Keep List link:
 - https://keep.google.com/#LIST/1gVzWihX1PIjUKA0gxanf4JXWqvNcKO2INpayB8ws3nB2PQ_W90TpSiXZmYmD9xVMCsZl0w

@@ -1,4 +1,6 @@
-const STORAGE_KEY = "school-quest-tracker-v1";
+const STORAGE_KEY = "school-quest-tracker-v2";
+const KEEP_LIST_URL =
+  "https://keep.google.com/#LIST/1gVzWihX1PIjUKA0gxanf4JXWqvNcKO2INpayB8ws3nB2PQ_W90TpSiXZmYmD9xVMCsZl0w";
 
 const state = loadState();
 
@@ -16,7 +18,12 @@ const elements = {
   keepInput: document.getElementById("keep-input"),
   importKeep: document.getElementById("import-keep"),
   clearCompleted: document.getElementById("clear-completed"),
+  activityLog: document.getElementById("activity-log"),
+  keepLinkText: document.getElementById("keep-link-text"),
+  copyKeepLink: document.getElementById("copy-keep-link"),
 };
+
+elements.keepLinkText.textContent = `Link: ${KEEP_LIST_URL}`;
 
 elements.taskForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -30,7 +37,17 @@ elements.taskForm.addEventListener("submit", (event) => {
     xp: Number(document.getElementById("task-difficulty").value),
   });
 
+  logActivity(`Added task: ${title}`);
   elements.taskForm.reset();
+});
+
+elements.copyKeepLink.addEventListener("click", async () => {
+  try {
+    await navigator.clipboard.writeText(KEEP_LIST_URL);
+    logActivity("Copied Keep link to clipboard.");
+  } catch {
+    logActivity("Could not copy automatically. Please copy the link text manually.");
+  }
 });
 
 elements.importKeep.addEventListener("click", () => {
@@ -39,14 +56,23 @@ elements.importKeep.addEventListener("click", () => {
     .map((line) => line.replace(/^[\[\]xX\-•\s]+/, "").trim())
     .filter(Boolean);
 
+  if (!lines.length) {
+    logActivity("Import skipped: no Keep lines found.");
+    return;
+  }
+
   lines.forEach((line) => addTask({ title: line, subject: "Keep import", due: "", xp: 15 }, false));
   saveAndRender();
+  logActivity(`Imported ${lines.length} task(s) from Keep.`);
   elements.keepInput.value = "";
 });
 
 elements.clearCompleted.addEventListener("click", () => {
+  const before = state.tasks.length;
   state.tasks = state.tasks.filter((task) => !task.done);
+  const removed = before - state.tasks.length;
   saveAndRender();
+  logActivity(`Cleared ${removed} completed task(s).`);
 });
 
 function addTask(task, rerender = true) {
@@ -69,6 +95,7 @@ function completeTask(id) {
   updateStreak();
   unlockBadges();
   saveAndRender();
+  logActivity(`Completed: ${task.title} (+${task.xp} XP)`);
 }
 
 function updateStreak() {
@@ -91,6 +118,16 @@ function getLevelInfo() {
   const level = Math.floor(state.xp / 100) + 1;
   const xpIntoLevel = state.xp % 100;
   return { level, xpIntoLevel, xpNeeded: 100 };
+}
+
+function logActivity(message) {
+  state.activity.unshift({
+    id: crypto.randomUUID(),
+    message,
+    createdAt: new Date().toLocaleString(),
+  });
+  state.activity = state.activity.slice(0, 8);
+  saveAndRender();
 }
 
 function saveAndRender() {
@@ -142,6 +179,13 @@ function render() {
     li.textContent = badge;
     elements.badgeList.appendChild(li);
   });
+
+  elements.activityLog.innerHTML = "";
+  state.activity.forEach((entry) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<strong>${escapeHtml(entry.createdAt)}</strong><br /><span>${escapeHtml(entry.message)}</span>`;
+    elements.activityLog.appendChild(li);
+  });
 }
 
 function loadState() {
@@ -156,6 +200,7 @@ function loadState() {
       lastCompletedDay: parsed.lastCompletedDay || "",
       completedCount: parsed.completedCount || 0,
       badges: new Set(parsed.badges || []),
+      activity: parsed.activity || [],
     };
   } catch {
     return {
@@ -165,12 +210,13 @@ function loadState() {
       lastCompletedDay: "",
       completedCount: 0,
       badges: new Set(),
+      activity: [{ id: crypto.randomUUID(), message: "App ready. Add your first task.", createdAt: new Date().toLocaleString() }],
     };
   }
 }
 
 function escapeHtml(value) {
-  return value
+  return String(value)
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")

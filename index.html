@@ -15,18 +15,20 @@
 
       <section class="panel keep-link-panel" aria-label="Google Keep list link">
         <h2>Google Keep Link</h2>
-        <p>Use this button to open your Keep checklist, then copy/paste tasks into the import box below.</p>
-        <a
-          class="keep-link-button"
-          href="https://keep.google.com/#LIST/1gVzWihX1PIjUKA0gxanf4JXWqvNcKO2INpayB8ws3nB2PQ_W90TpSiXZmYmD9xVMCsZl0w"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Open My Google Keep List
-        </a>
-        <p class="keep-link-text">
-          Link: https://keep.google.com/#LIST/1gVzWihX1PIjUKA0gxanf4JXWqvNcKO2INpayB8ws3nB2PQ_W90TpSiXZmYmD9xVMCsZl0w
-        </p>
+        <p>Open your Keep checklist and paste tasks into the import box.</p>
+        <div class="keep-link-actions">
+          <a
+            id="keep-link"
+            class="keep-link-button"
+            href="https://keep.google.com/#LIST/1gVzWihX1PIjUKA0gxanf4JXWqvNcKO2INpayB8ws3nB2PQ_W90TpSiXZmYmD9xVMCsZl0w"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Open My Google Keep List
+          </a>
+          <button id="copy-keep-link" type="button" class="ghost">Copy Link</button>
+        </div>
+        <p class="keep-link-text" id="keep-link-text"></p>
       </section>
 
       <section class="panel stats" aria-label="Progress statistics">
@@ -60,11 +62,6 @@
 
       <section class="panel" aria-label="Google Keep import">
         <h2>Import from Google Keep</h2>
-        <p>
-          Direct API access to Google Keep is limited, so this quick import accepts checklist text copied
-          from your Keep list.
-          <a href="https://keep.google.com/#LIST/1gVzWihX1PIjUKA0gxanf4JXWqvNcKO2INpayB8ws3nB2PQ_W90TpSiXZmYmD9xVMCsZl0w" target="_blank" rel="noreferrer">Open your Keep list</a>.
-        </p>
         <textarea
           id="keep-input"
           rows="5"
@@ -80,6 +77,11 @@
         <h2>Active Quests</h2>
         <ul id="task-list" class="task-list"></ul>
         <p id="empty-state" class="empty-state">No quests yet. Add one to get started.</p>
+      </section>
+
+      <section class="panel" aria-label="Activity output">
+        <h2>Live Output</h2>
+        <ul id="activity-log" class="activity-log"></ul>
       </section>
 
       <section class="panel badges" aria-label="Badge cabinet">
